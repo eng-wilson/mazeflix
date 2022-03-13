@@ -15,6 +15,8 @@ import {
 import defaultTheme from "./src/styles/theme/default";
 import Shows from "./src/screens/Shows";
 
+import "./src/config/ReactotronConfig";
+
 export default function App() {
   let [fontsLoaded] = useFonts({
     Inter_300Light,

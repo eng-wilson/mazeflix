@@ -14,7 +14,7 @@ export const Container = styled.TouchableOpacity`
   padding: 10px 14px;
 `;
 
-export const Image = styled.View`
+export const Image = styled.Image`
   width: 100px;
   height: 100px;
 

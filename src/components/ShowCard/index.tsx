@@ -13,27 +13,36 @@ import {
   Row,
 } from "./styles";
 
-const ShowCard = () => {
+interface Props {
+  title: string;
+  status: string;
+  genres: string[];
+  rating: number | undefined;
+  image: string;
+}
+
+const ShowCard = ({ title, status, genres, rating, image }: Props) => {
   return (
     <Container>
-      <Image />
+      <Image source={{ uri: image }} />
       <Wrapper>
-        <Title>Title</Title>
-
+        <Title>{title}</Title>
         <FlexStartContainer>
           <StatusWrapper>
-            <Status>Ended</Status>
+            <Status>{status}</Status>
           </StatusWrapper>
         </FlexStartContainer>
 
-        <DarkText>Drama, Romance</DarkText>
+        <DarkText>{genres.join(", ")}</DarkText>
       </Wrapper>
 
-      <Row>
-        <Icon name="star" />
+      {rating && (
+        <Row>
+          <Icon name="star" />
 
-        <DarkText>6.6</DarkText>
-      </Row>
+          <DarkText>{rating.toFixed(1)}</DarkText>
+        </Row>
+      )}
     </Container>
   );
 };
