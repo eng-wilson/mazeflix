@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components";
-import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -13,7 +13,8 @@ import {
 } from "@expo-google-fonts/inter";
 
 import defaultTheme from "./src/styles/theme/default";
-import Shows from "./src/screens/Shows";
+
+import Routes from "./src/routes";
 
 import "./src/config/ReactotronConfig";
 
@@ -33,8 +34,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <StatusBar style="auto" />
-      <Shows />
+      <NavigationContainer>
+        <StatusBar style="auto" />
+        <Routes />
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
