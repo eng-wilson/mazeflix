@@ -15,11 +15,12 @@ interface Props {
   genres: string[];
   rating: number | undefined;
   image: string;
+  onPress: () => void;
 }
 
-const ShowCard = ({ title, genres, rating, image }: Props) => {
+const ShowCard = ({ title, genres, rating, image, onPress }: Props) => {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <Image source={{ uri: image }} />
 
       <Title>{title}</Title>

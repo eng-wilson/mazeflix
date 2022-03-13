@@ -1,9 +1,13 @@
+import { useNavigation } from "@react-navigation/native";
 import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, TouchableOpacity } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import Input from "../../components/Input";
 import ShowCard from "../../components/ShowCard";
+
+import { StackParamProps } from "../../interfaces/routes.b";
 
 import { getShows } from "../../services/shows";
 
@@ -21,6 +25,7 @@ interface ShowsProps {
 }
 
 const Shows = () => {
+  const navigation = useNavigation<StackNavigationProp<StackParamProps>>();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [shows, setShows] = useState([]);
@@ -67,6 +72,7 @@ const Shows = () => {
             genres={item.genres}
             rating={item.rating.average}
             image={item.image.medium}
+            onPress={() => navigation.navigate("ShowDetails")}
           />
         )}
       />

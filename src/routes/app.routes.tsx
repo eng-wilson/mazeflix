@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components";
 
 import Shows from "../screens/Shows";
+import ShowDetails from "../screens/ShowDetails";
 
 import { Icon } from "./styles";
 
@@ -48,6 +49,7 @@ const AuthRoutes: React.FC = () => {
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }}>
       <AppStack.Screen name="Shows" component={ShowsStackScreen} />
+      <AppStack.Screen name="ShowDetails" component={ShowDetails} />
     </AppStack.Navigator>
   );
 };
