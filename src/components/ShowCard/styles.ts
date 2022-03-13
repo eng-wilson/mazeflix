@@ -4,13 +4,13 @@ import { FontAwesome } from "@expo/vector-icons";
 export const Container = styled.TouchableOpacity`
   width: 100%;
   height: 120px;
+  border-radius: 10px;
 
   flex-direction: row;
 
   background-color: ${({ theme }) => theme.colors.gray700};
 
   margin-bottom: 20px;
-
   padding: 10px 14px;
 `;
 
