@@ -11,7 +11,6 @@ import { Container, Row, FilterOption, Divider } from "./styles";
 
 interface ShowsProps {
   name: string;
-  status: string;
   genres: string[];
   rating: {
     average: number;
@@ -60,10 +59,11 @@ const Shows = () => {
 
       <FlatList
         data={shows}
+        numColumns={2}
+        initialNumToRender={20}
         renderItem={({ item }: { item: ShowsProps }) => (
           <ShowCard
             title={item.name}
-            status={item.status}
             genres={item.genres}
             rating={item.rating.average}
             image={item.image.medium}
