@@ -18,6 +18,15 @@ const defaultTheme: DefaultTheme = {
     gray700: "#2D3748",
     gray900: "#171923",
   },
+
+  fonts: {
+    light: "Inter_300Light",
+    regular: "Inter_400Regular",
+    medium: "Inter_500Medium",
+    semiBold: "Inter_600SemiBold",
+    bold: "Inter_700Bold",
+    black: "Inter_900Black",
+  },
 };
 
 export default defaultTheme;

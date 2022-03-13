@@ -19,5 +19,14 @@ declare module "styled-components" {
       gray700: string;
       gray900: string;
     };
+
+    fonts: {
+      light: string;
+      regular: string;
+      medium: string;
+      semiBold: string;
+      bold: string;
+      black: string;
+    };
   }
 }
