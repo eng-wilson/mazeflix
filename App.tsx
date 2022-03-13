@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { ThemeProvider } from "styled-components";
 import { StyleSheet, Text, View } from "react-native";
 import AppLoading from "expo-app-loading";
 import {
@@ -10,6 +11,9 @@ import {
   Inter_700Bold,
   Inter_900Black,
 } from "@expo-google-fonts/inter";
+
+import defaultTheme from "./src/styles/theme/default";
+import Shows from "./src/screens/Shows";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -26,18 +30,9 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <ThemeProvider theme={defaultTheme}>
       <StatusBar style="auto" />
-    </View>
+      <Shows />
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

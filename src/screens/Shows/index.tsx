@@ -1,10 +1,15 @@
 import React from "react";
-import { View } from "react-native";
+import { FlatList, Text } from "react-native";
+import ShowCard from "../../components/ShowCard";
 
-// import { Container } from './styles';
+import { Container } from "./styles";
 
 const Shows = () => {
-  return <View />;
+  return (
+    <Container>
+      <FlatList data={[1, 2, 3]} renderItem={({ item }) => <ShowCard />} />
+    </Container>
+  );
 };
 
 export default Shows;
