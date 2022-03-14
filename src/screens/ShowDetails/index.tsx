@@ -24,6 +24,8 @@ import {
   Wrapper,
   EpisodeList,
   StyledPicker,
+  Row,
+  Icon,
 } from "./styles";
 
 interface ShowsProps {
@@ -135,7 +137,15 @@ const ShowDetails = () => {
 
         <InfoContainer>
           <Wrapper>
-            <Title>{show?.name}</Title>
+            <Row>
+              <Title>{show?.name}</Title>
+
+              <Row>
+                <Icon name="star" />
+
+                <DarkText>{show?.rating.average.toFixed(1)}</DarkText>
+              </Row>
+            </Row>
 
             <Genres>{show?.genres.join(", ")}</Genres>
           </Wrapper>

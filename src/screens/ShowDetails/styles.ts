@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { Picker } from "@react-native-picker/picker";
+import { FontAwesome } from "@expo/vector-icons";
 
 export const Container = styled.View`
   flex: 1;
@@ -42,6 +43,7 @@ export const SubTitle = styled.Text`
   font-size: 18px;
 
   color: ${({ theme }) => theme.colors.white};
+  margin-bottom: 6px;
 `;
 
 export const Genres = styled.Text`
@@ -60,13 +62,9 @@ export const DarkText = styled.Text`
   text-align: justify;
 
   color: ${({ theme }) => theme.colors.gray400};
-
-  margin-top: 6px;
 `;
 
 export const EpisodeList = styled.View`
-  /* flex-direction: row; */
-
   justify-content: space-between;
   flex-wrap: wrap;
 
@@ -78,4 +76,17 @@ export const StyledPicker = styled(Picker)`
   color: ${({ theme }) => theme.colors.white};
 
   border-radius: 10px;
+`;
+
+export const Row = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Icon = styled(FontAwesome)`
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.yellow300};
+
+  margin-right: 6px;
 `;
