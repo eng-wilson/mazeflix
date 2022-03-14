@@ -32,7 +32,7 @@ interface ShowsProps {
   name: string;
   genres: string[];
   rating: {
-    average: number;
+    average: number | undefined;
   };
   image: {
     medium: string;
@@ -140,11 +140,13 @@ const ShowDetails = () => {
             <Row>
               <Title>{show?.name}</Title>
 
-              <Row>
-                <Icon name="star" />
+              {show?.rating.average && (
+                <Row>
+                  <Icon name="star" />
 
-                <DarkText>{show?.rating.average.toFixed(1)}</DarkText>
-              </Row>
+                  <DarkText>{show?.rating.average?.toFixed(1)}</DarkText>
+                </Row>
+              )}
             </Row>
 
             <Genres>{show?.genres.join(", ")}</Genres>
