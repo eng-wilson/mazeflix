@@ -2,6 +2,10 @@ import styled from "styled-components/native";
 import { Picker } from "@react-native-picker/picker";
 import { FontAwesome } from "@expo/vector-icons";
 
+interface TextProps {
+  bold?: boolean;
+}
+
 export const Container = styled.View`
   flex: 1;
 
@@ -46,36 +50,14 @@ export const SubTitle = styled.Text`
   margin-bottom: 6px;
 `;
 
-export const Genres = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 16px;
-
-  color: ${({ theme }) => theme.colors.gray400};
-
-  margin-top: 6px;
-`;
-
-export const DarkText = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
+export const DarkText = styled.Text<TextProps>`
+  font-family: ${({ theme, bold }) =>
+    bold ? theme.fonts.bold : theme.fonts.regular};
   font-size: 16px;
 
   text-align: justify;
 
   color: ${({ theme }) => theme.colors.gray400};
-`;
-
-export const EpisodeList = styled.View`
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  margin-top: 10px;
-`;
-
-export const StyledPicker = styled(Picker)`
-  background-color: ${({ theme }) => theme.colors.gray700};
-  color: ${({ theme }) => theme.colors.white};
-
-  border-radius: 10px;
 `;
 
 export const Row = styled.View`

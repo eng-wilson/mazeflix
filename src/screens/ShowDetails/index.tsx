@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { useRoute, RouteProp } from "@react-navigation/native";
+import { useRoute, RouteProp, useNavigation } from "@react-navigation/native";
 
 import EpisodeCard from "../../components/EpisodeCard";
 import Header from "../../components/Header";
 
 import { StackParamProps } from "../../interfaces/routes.b";
+import { ShowProps, EpisodeProps } from "../../interfaces/shows.b";
 
 import {
   getShowById,
@@ -27,42 +28,18 @@ import {
   Row,
   Icon,
 } from "./styles";
-
-interface ShowsProps {
-  name: string;
-  genres: string[];
-  rating: {
-    average: number | undefined;
-  };
-  image: {
-    medium: string;
-    original: string;
-  };
-  id: number;
-  summary: string;
-}
-
-interface EpisodeProps {
-  season: number;
-  number: number;
-  name: string;
-  runtime: number;
-  image: {
-    medium: string;
-    original: string;
-  };
-  rating: {
-    average: number;
-  };
-}
+import { useTheme } from "styled-components";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 const ShowDetails = () => {
+  const navigation = useNavigation<StackNavigationProp<StackParamProps>>();
+  const theme = useTheme();
   const [season, setSeason] = useState(1);
   const [seasons, setSeasons] = useState<number[]>();
   const [episodes, setEpisodes] = useState([]);
 
   const [episodesBySeason, setEpisodesBySeason] = useState([]);
-  const [show, setShow] = useState<ShowsProps>();
+  const [show, setShow] = useState<ShowProps>();
   const { params } = useRoute<RouteProp<StackParamProps, "ShowDetails">>();
 
   const getShowDetails = async () => {
@@ -164,6 +141,7 @@ const ShowDetails = () => {
             <StyledPicker
               selectedValue={season}
               onValueChange={(itemValue) => setSeason(Number(itemValue))}
+              dropdownIconColor={theme.colors.white}
             >
               {seasons?.map((selectedSeason) => (
                 <StyledPicker.Item
@@ -179,7 +157,9 @@ const ShowDetails = () => {
                   title={`${episode.name}`}
                   length={episode.runtime}
                   rating={episode.rating?.average}
-                  onPress={() => {}}
+                  onPress={() => {
+                    navigation.navigate("EpisodeDetails", { ...episode });
+                  }}
                   image={
                     episode.image ? episode.image.medium : show?.image.medium
                   }

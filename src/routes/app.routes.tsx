@@ -4,6 +4,7 @@ import { useTheme } from "styled-components";
 
 import Shows from "../screens/Shows";
 import ShowDetails from "../screens/ShowDetails";
+import EpisodeDetails from "../screens/EpisodeDetails";
 
 import { Icon } from "./styles";
 
@@ -50,6 +51,7 @@ const AuthRoutes: React.FC = () => {
     <AppStack.Navigator screenOptions={{ headerShown: false }}>
       <AppStack.Screen name="Shows" component={ShowsStackScreen} />
       <AppStack.Screen name="ShowDetails" component={ShowDetails} />
+      <AppStack.Screen name="EpisodeDetails" component={EpisodeDetails} />
     </AppStack.Navigator>
   );
 };
