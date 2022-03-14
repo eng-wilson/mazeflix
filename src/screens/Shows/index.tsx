@@ -22,6 +22,7 @@ interface ShowsProps {
   image: {
     medium: string;
   };
+  id: number;
 }
 
 const Shows = () => {
@@ -67,13 +68,18 @@ const Shows = () => {
         numColumns={2}
         initialNumToRender={20}
         renderItem={({ item }: { item: ShowsProps }) => (
-          <ShowCard
-            title={item.name}
-            genres={item.genres}
-            rating={item.rating.average}
-            image={item.image.medium}
-            onPress={() => navigation.navigate("ShowDetails")}
-          />
+          <>
+            <ShowCard
+              title={item.name}
+              genres={item.genres}
+              rating={item.rating.average}
+              image={item.image.medium}
+              onPress={() =>
+                navigation.navigate("ShowDetails", { id: item.id })
+              }
+            />
+            {console.tron.logImportant(item)}
+          </>
         )}
       />
     </Container>

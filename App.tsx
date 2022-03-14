@@ -1,3 +1,4 @@
+import { SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components";
 import { NavigationContainer } from "@react-navigation/native";
@@ -35,8 +36,10 @@ export default function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <NavigationContainer>
-        <StatusBar style="auto" />
-        <Routes />
+        <SafeAreaView style={{ flex: 1 }}>
+          <StatusBar />
+          <Routes />
+        </SafeAreaView>
       </NavigationContainer>
     </ThemeProvider>
   );

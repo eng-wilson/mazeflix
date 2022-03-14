@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
+import { Picker } from "@react-native-picker/picker";
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex: 1;
 
   background-color: ${({ theme }) => theme.colors.gray900};
@@ -48,11 +49,33 @@ export const Genres = styled.Text`
   font-size: 16px;
 
   color: ${({ theme }) => theme.colors.gray400};
+
+  margin-top: 6px;
 `;
 
 export const DarkText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: 16px;
 
+  text-align: justify;
+
   color: ${({ theme }) => theme.colors.gray400};
+
+  margin-top: 6px;
+`;
+
+export const EpisodeList = styled.View`
+  /* flex-direction: row; */
+
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  margin-top: 10px;
+`;
+
+export const StyledPicker = styled(Picker)`
+  background-color: ${({ theme }) => theme.colors.gray700};
+  color: ${({ theme }) => theme.colors.white};
+
+  border-radius: 10px;
 `;

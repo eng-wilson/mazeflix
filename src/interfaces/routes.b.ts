@@ -1,4 +1,6 @@
 export type StackParamProps = {
   Shows: undefined;
-  ShowDetails: undefined;
+  ShowDetails: {
+    id: number;
+  };
 };
