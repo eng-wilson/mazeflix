@@ -13,6 +13,7 @@ export type ShowProps = {
 };
 
 export type EpisodeProps = {
+  id: number;
   season: number;
   number: number;
   name: string;

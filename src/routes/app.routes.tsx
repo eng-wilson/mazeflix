@@ -12,7 +12,7 @@ const AuthRoutes: React.FC = () => {
   const AppStack = createNativeStackNavigator();
   const AppTabs = createBottomTabNavigator();
 
-  function ShowsStackScreen() {
+  function TabScreens() {
     const theme = useTheme();
 
     return (
@@ -49,7 +49,7 @@ const AuthRoutes: React.FC = () => {
 
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }}>
-      <AppStack.Screen name="Shows" component={ShowsStackScreen} />
+      <AppStack.Screen name="Tabs" component={TabScreens} />
       <AppStack.Screen name="ShowDetails" component={ShowDetails} />
       <AppStack.Screen name="EpisodeDetails" component={EpisodeDetails} />
     </AppStack.Navigator>

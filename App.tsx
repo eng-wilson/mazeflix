@@ -18,6 +18,7 @@ import defaultTheme from "./src/styles/theme/default";
 import Routes from "./src/routes";
 
 import "./src/config/ReactotronConfig";
+import { FavProvider } from "./src/hooks/favorites";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -35,12 +36,14 @@ export default function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <NavigationContainer>
-        <SafeAreaView style={{ flex: 1 }}>
-          <StatusBar />
-          <Routes />
-        </SafeAreaView>
-      </NavigationContainer>
+      <FavProvider>
+        <NavigationContainer>
+          <SafeAreaView style={{ flex: 1 }}>
+            <StatusBar />
+            <Routes />
+          </SafeAreaView>
+        </NavigationContainer>
+      </FavProvider>
     </ThemeProvider>
   );
 }

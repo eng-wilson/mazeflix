@@ -1,9 +1,22 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { EpisodeProps } from "../../interfaces/shows.b";
 
-import { Container, Icon, IconContainer } from "./styles";
+import {
+  Container,
+  Icon,
+  IconContainer,
+  HeartIcon,
+  FavoriteContainer,
+  FavoriteText,
+} from "./styles";
 
-const Header = () => {
+interface HeaderProps {
+  favorite?: boolean;
+  onFav?: () => void;
+}
+
+const Header = ({ favorite, onFav }: HeaderProps) => {
   const navigation = useNavigation();
   return (
     <Container>
@@ -11,9 +24,13 @@ const Header = () => {
         <Icon name="arrow-left" />
       </IconContainer>
 
-      <IconContainer>
-        <Icon name="heart" />
-      </IconContainer>
+      {onFav && (
+        <FavoriteContainer onPress={onFav} favorite={favorite}>
+          <HeartIcon name={"heart"} favorite={favorite} />
+
+          <FavoriteText favorite={favorite}>Favorite</FavoriteText>
+        </FavoriteContainer>
+      )}
     </Container>
   );
 };

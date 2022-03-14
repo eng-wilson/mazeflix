@@ -30,9 +30,12 @@ import {
 } from "./styles";
 import { useTheme } from "styled-components";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { useFav } from "../../hooks/favorites";
 
 const ShowDetails = () => {
   const navigation = useNavigation<StackNavigationProp<StackParamProps>>();
+  const { favorites, toggleFavorite } = useFav();
+  const [isFavorite, setIsFavorite] = useState(false);
   const theme = useTheme();
   const [season, setSeason] = useState(1);
   const [seasons, setSeasons] = useState<number[]>();
@@ -50,7 +53,7 @@ const ShowDetails = () => {
         setShow(response.data);
       }
     } catch (e) {
-      console.log(e);
+      console.log("error");
     }
   };
 
@@ -67,7 +70,7 @@ const ShowDetails = () => {
         setSeasons(seasonsList);
       }
     } catch (e) {
-      console.log(e);
+      console.log("error");
     }
   };
 
@@ -79,7 +82,7 @@ const ShowDetails = () => {
         setEpisodes(response.data);
       }
     } catch (e) {
-      console.log(e);
+      console.log("error");
     }
   };
 
@@ -91,10 +94,26 @@ const ShowDetails = () => {
     setEpisodesBySeason(filter);
   };
 
+  const addShowToFavorite = async () => {
+    const favoritesList = await toggleFavorite(params.id);
+
+    if (favoritesList.includes(params.id)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  };
+
   useEffect(() => {
     getShowDetails();
     getShowSeasonsData();
     getShowEpisodesData();
+
+    if (favorites.includes(params.id)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -103,7 +122,7 @@ const ShowDetails = () => {
 
   return (
     <Container>
-      <Header />
+      <Header favorite={isFavorite} onFav={addShowToFavorite} />
 
       <ScrollView>
         <CoverImage
@@ -154,6 +173,7 @@ const ShowDetails = () => {
             <EpisodeList>
               {episodesBySeason.map((episode: EpisodeProps) => (
                 <EpisodeCard
+                  key={episode.id}
                   title={`${episode.name}`}
                   length={episode.runtime}
                   rating={episode.rating?.average}

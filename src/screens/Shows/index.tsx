@@ -39,7 +39,7 @@ const Shows = () => {
         setShows(result.data);
       }
     } catch (e) {
-      console.log(e);
+      console.log("error");
     }
   };
 
@@ -68,18 +68,14 @@ const Shows = () => {
         numColumns={2}
         initialNumToRender={20}
         renderItem={({ item }: { item: ShowsProps }) => (
-          <>
-            <ShowCard
-              title={item.name}
-              genres={item.genres}
-              rating={item.rating.average}
-              image={item.image.medium}
-              onPress={() =>
-                navigation.navigate("ShowDetails", { id: item.id })
-              }
-            />
-            {console.tron.logImportant(item)}
-          </>
+          <ShowCard
+            key={item.id}
+            title={item.name}
+            genres={item.genres}
+            rating={item.rating.average}
+            image={item.image.medium}
+            onPress={() => navigation.navigate("ShowDetails", { id: item.id })}
+          />
         )}
       />
     </Container>
