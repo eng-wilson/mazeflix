@@ -8,7 +8,7 @@ export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.gray900};
 
-  padding: 20px 20px 0px 20px;
+  padding: 40px 20px 0px 20px;
 `;
 
 export const Row = styled.View`
@@ -18,7 +18,7 @@ export const Row = styled.View`
   justify-content: space-around;
   align-items: center;
 
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 export const FilterOption = styled.Text<FilterProps>`

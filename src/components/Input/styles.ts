@@ -15,7 +15,7 @@ export const Container = styled.View<ContainerProps>`
   justify-content: space-between;
   align-items: center;
 
-  border: 1px solid #6a6c73;
+  border: 1px #6a6c73;
   border-radius: 10px;
 
   background-color: #fff;

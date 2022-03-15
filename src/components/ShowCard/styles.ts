@@ -1,5 +1,9 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { FontAwesome } from "@expo/vector-icons";
+
+interface IconProps {
+  inverse?: boolean;
+}
 
 export const Container = styled.TouchableOpacity`
   flex: 1;
@@ -8,7 +12,7 @@ export const Container = styled.TouchableOpacity`
   /* justify-content: center; */
   align-items: center;
 
-  margin-bottom: 20px;
+  margin-top: 20px;
   /* padding: 10px 14px; */
 `;
 
@@ -42,6 +46,8 @@ export const DarkText = styled.Text`
   text-align: center;
 
   color: ${({ theme }) => theme.colors.gray400};
+
+  padding-left: 6px;
 `;
 
 export const Row = styled.View`
@@ -52,9 +58,27 @@ export const Row = styled.View`
   padding-top: 4px;
 `;
 
-export const Icon = styled(FontAwesome)`
+export const Icon = styled(FontAwesome)<IconProps>`
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.yellow300};
+  color: ${({ theme, inverse }) =>
+    inverse ? theme.colors.black : theme.colors.yellow300};
 
-  margin-right: 6px;
+  /* margin-right: 6px; */
+`;
+
+export const IconContainer = styled.View`
+  width: 30px;
+  height: 30px;
+
+  border-radius: 20px;
+
+  justify-content: center;
+  align-items: center;
+
+  background-color: ${({ theme }) => theme.colors.yellow300};
+
+  position: absolute;
+
+  top: -13px;
+  left: -13px;
 `;

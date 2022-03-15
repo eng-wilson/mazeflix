@@ -8,28 +8,21 @@ import Input from "../../components/Input";
 import ShowCard from "../../components/ShowCard";
 
 import { StackParamProps } from "../../interfaces/routes.b";
+import { ShowProps } from "../../interfaces/shows.b";
 
 import { getShows } from "../../services/shows";
 
 import { Container, Row, FilterOption, Divider } from "./styles";
 
-interface ShowsProps {
-  name: string;
-  genres: string[];
-  rating: {
-    average: number;
-  };
-  image: {
-    medium: string;
-  };
-  id: number;
-}
+import { useFav } from "../../hooks/favorites";
 
 const Shows = () => {
   const navigation = useNavigation<StackNavigationProp<StackParamProps>>();
+  const { favorites } = useFav();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [shows, setShows] = useState([]);
+  const [shows, setShows] = useState<ShowProps[]>([]);
+  const [filter, setFilter] = useState("all");
 
   const getShowsData = async () => {
     try {
@@ -43,6 +36,34 @@ const Shows = () => {
     }
   };
 
+  const setFilterToAll = () => {
+    setFilter("all");
+  };
+
+  const setFilterToFavorites = () => {
+    setFilter("favorites");
+  };
+
+  function sortByShowName(a: ShowProps, b: ShowProps) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  }
+
+  const getFilteredList = () => {
+    if (filter === "all") {
+      return shows;
+    } else {
+      const filteredList = shows.filter((show) => favorites.includes(show.id));
+
+      return filteredList.sort(sortByShowName);
+    }
+  };
+
   useEffect(() => {
     getShowsData();
   }, [page]);
@@ -50,30 +71,31 @@ const Shows = () => {
   return (
     <Container>
       <Row>
-        <TouchableOpacity>
-          <FilterOption active>All</FilterOption>
+        <TouchableOpacity onPress={setFilterToAll}>
+          <FilterOption active={filter === "all"}>All</FilterOption>
         </TouchableOpacity>
 
         <Divider />
 
-        <TouchableOpacity>
-          <FilterOption>Favorites</FilterOption>
+        <TouchableOpacity onPress={setFilterToFavorites}>
+          <FilterOption active={filter === "favorites"}>Favorites</FilterOption>
         </TouchableOpacity>
       </Row>
 
       <Input placeholder="Search" value={search} onChange={setSearch} />
 
       <FlatList
-        data={shows}
+        data={getFilteredList()}
         numColumns={2}
         initialNumToRender={20}
-        renderItem={({ item }: { item: ShowsProps }) => (
+        renderItem={({ item }: { item: ShowProps }) => (
           <ShowCard
             key={item.id}
             title={item.name}
             genres={item.genres}
-            rating={item.rating.average}
+            rating={item.rating}
             image={item.image.medium}
+            favorite={favorites.includes(item.id)}
             onPress={() => navigation.navigate("ShowDetails", { id: item.id })}
           />
         )}

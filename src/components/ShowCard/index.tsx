@@ -8,30 +8,49 @@ import {
   Wrapper,
   Icon,
   Row,
+  IconContainer,
 } from "./styles";
 
 interface Props {
   title: string;
   genres: string[];
-  rating: number | undefined;
+  rating: {
+    average: number | undefined;
+  };
   image: string;
+  favorite: boolean;
   onPress: () => void;
 }
 
-const ShowCard = ({ title, genres, rating, image, onPress }: Props) => {
+const ShowCard = ({
+  title,
+  genres,
+  rating,
+  image,
+  onPress,
+  favorite,
+}: Props) => {
   return (
     <Container onPress={onPress}>
-      <Image source={{ uri: image }} />
+      <View>
+        <Image source={{ uri: image }} />
+
+        {favorite && (
+          <IconContainer>
+            <Icon name="heart" inverse={favorite} />
+          </IconContainer>
+        )}
+      </View>
 
       <Title>{title}</Title>
 
       {genres.length > 0 && <DarkText>{genres.join(", ")}</DarkText>}
 
-      {rating && (
+      {rating.average && (
         <Row>
           <Icon name="star" />
 
-          <DarkText>{rating.toFixed(1)}</DarkText>
+          <DarkText>{rating.average?.toFixed(1)}</DarkText>
         </Row>
       )}
     </Container>

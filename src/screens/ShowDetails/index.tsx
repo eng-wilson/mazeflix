@@ -94,31 +94,27 @@ const ShowDetails = () => {
     setEpisodesBySeason(filter);
   };
 
-  const addShowToFavorite = async () => {
-    const favoritesList = await toggleFavorite(params.id);
-
-    if (favoritesList.includes(params.id)) {
-      setIsFavorite(true);
-    } else {
-      setIsFavorite(false);
-    }
+  const addShowToFavorite = () => {
+    toggleFavorite(params.id);
   };
 
   useEffect(() => {
     getShowDetails();
     getShowSeasonsData();
     getShowEpisodesData();
-
-    if (favorites.includes(params.id)) {
-      setIsFavorite(true);
-    } else {
-      setIsFavorite(false);
-    }
   }, []);
 
   useEffect(() => {
     filterEpisodesBySeason();
   }, [episodes, season]);
+
+  useEffect(() => {
+    if (favorites.includes(params.id)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [favorites]);
 
   return (
     <Container>
@@ -164,6 +160,7 @@ const ShowDetails = () => {
             >
               {seasons?.map((selectedSeason) => (
                 <StyledPicker.Item
+                  key={selectedSeason}
                   label={`Season ${selectedSeason}`}
                   value={selectedSeason}
                 />

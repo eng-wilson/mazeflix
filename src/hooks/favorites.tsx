@@ -13,7 +13,7 @@ interface FavProviderProps {
 
 interface FavContextProps {
   favorites: number[];
-  toggleFavorite: (id: number) => Promise<number[]>;
+  toggleFavorite: (id: number) => void;
 }
 
 const FavContext = createContext({} as FavContextProps);
@@ -21,29 +21,24 @@ const FavContext = createContext({} as FavContextProps);
 function FavProvider({ children }: FavProviderProps) {
   const [favorites, setFavorites] = useState<number[]>([]);
 
-  const toggleFavorite = async (id: number) => {
+  const toggleFavorite = (id: number) => {
     try {
       if (!favorites.includes(id)) {
-        const newFavorites = favorites;
-        newFavorites.push(id);
+        setFavorites((favorites) => {
+          const jsonValue = JSON.stringify(favorites);
 
-        setFavorites(newFavorites);
+          AsyncStorage.setItem("@user_key", jsonValue);
 
-        const jsonValue = JSON.stringify(newFavorites);
-
-        await AsyncStorage.setItem("@user_key", jsonValue);
-
-        return newFavorites;
+          return [...favorites, id];
+        });
       } else {
-        const newFavorites = favorites.filter((favorite) => favorite !== id);
+        setFavorites((favorites) => {
+          const jsonValue = JSON.stringify(favorites);
 
-        setFavorites(newFavorites);
+          AsyncStorage.setItem("@user_key", jsonValue);
 
-        const jsonValue = JSON.stringify(newFavorites);
-
-        await AsyncStorage.setItem("@user_key", jsonValue);
-
-        return newFavorites;
+          return favorites.filter((favorite) => favorite !== id);
+        });
       }
     } catch (e) {
       console.log("error");
@@ -54,7 +49,7 @@ function FavProvider({ children }: FavProviderProps) {
 
   const retrieveFavorites = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem("@storage_Key");
+      const jsonValue = await AsyncStorage.getItem("@user_key");
 
       if (jsonValue !== null) {
         setFavorites(JSON.parse(jsonValue));
