@@ -6,6 +6,8 @@ import Shows from "../screens/Shows";
 import ShowDetails from "../screens/ShowDetails";
 import EpisodeDetails from "../screens/EpisodeDetails";
 
+import People from "../screens/People";
+
 import { Icon } from "./styles";
 
 const AuthRoutes: React.FC = () => {
@@ -27,6 +29,11 @@ const AuthRoutes: React.FC = () => {
               focusedRoute = focused && "tv";
             }
 
+            if (route.name === "People") {
+              iconName = "user";
+              focusedRoute = focused && "user";
+            }
+
             return (
               <Icon
                 name={iconName}
@@ -43,6 +50,7 @@ const AuthRoutes: React.FC = () => {
         })}
       >
         <AppTabs.Screen name="Shows" component={Shows} />
+        <AppTabs.Screen name="People" component={People} />
       </AppTabs.Navigator>
     );
   }
