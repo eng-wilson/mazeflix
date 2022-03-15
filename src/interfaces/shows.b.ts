@@ -4,10 +4,12 @@ export type ShowProps = {
   rating: {
     average: number | undefined;
   };
-  image: null | {
-    medium: string;
-    original: string;
-  };
+  image:
+    | undefined
+    | {
+        medium: string;
+        original: string;
+      };
   id: number;
   summary: string;
 };
@@ -18,14 +20,16 @@ export type EpisodeProps = {
   number: number;
   name: string;
   runtime: number;
-  image: {
-    medium: string;
-    original: string;
-  };
+  image:
+    | undefined
+    | {
+        medium: string;
+        original: string;
+      };
   rating: {
     average: number;
   };
-  summary: string;
+  summary: string | undefined;
 };
 
 export type ShowSearchProps = {

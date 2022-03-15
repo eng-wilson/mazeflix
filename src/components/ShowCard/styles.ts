@@ -7,6 +7,7 @@ interface IconProps {
 
 export const Container = styled.TouchableOpacity`
   flex: 1;
+
   border-radius: 10px;
 
   align-items: center;

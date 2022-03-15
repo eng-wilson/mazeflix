@@ -26,11 +26,13 @@ const EpisodeDetails = () => {
       <Header />
 
       <ScrollView>
-        <CoverImage
-          source={{
-            uri: params?.image.original,
-          }}
-        />
+        {params.image && (
+          <CoverImage
+            source={{
+              uri: params?.image?.original,
+            }}
+          />
+        )}
 
         <InfoContainer>
           <Wrapper>
@@ -55,11 +57,17 @@ const EpisodeDetails = () => {
             <DarkText bold>Episode {params?.number}</DarkText>
           </Wrapper>
 
-          <Wrapper>
-            <SubTitle>Summary</SubTitle>
+          {
+            <Wrapper>
+              <SubTitle>Summary</SubTitle>
 
-            <DarkText>{params?.summary.replace(/<[^>]*>?/gm, "")}</DarkText>
-          </Wrapper>
+              <DarkText>
+                {params?.summary
+                  ? params?.summary?.replace(/<[^>]*>?/gm, "")
+                  : "-"}
+              </DarkText>
+            </Wrapper>
+          }
         </InfoContainer>
       </ScrollView>
     </Container>

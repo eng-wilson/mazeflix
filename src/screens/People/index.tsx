@@ -1,13 +1,18 @@
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import Input from "../../components/Input";
 import PeopleCard from "../../components/PeopleCard";
 import { PeopleProps } from "../../interfaces/people.b";
+import { StackParamProps } from "../../interfaces/routes.b";
 import { getPeople } from "../../services/people";
 
 import { Container } from "./styles";
 
 const People = () => {
+  const navigation = useNavigation<StackNavigationProp<StackParamProps>>();
+
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [people, setPeople] = useState<PeopleProps[]>([]);
@@ -42,7 +47,7 @@ const People = () => {
             name={item.name}
             country={item.country}
             image={item.image?.medium}
-            onPress={() => {}}
+            onPress={() => navigation.navigate("PeopleDetails", { ...item })}
           />
         )}
       />

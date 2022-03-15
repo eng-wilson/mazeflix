@@ -1,3 +1,4 @@
+import { PeopleProps } from "./people.b";
 import { EpisodeProps } from "./shows.b";
 
 export type StackParamProps = {
@@ -6,4 +7,5 @@ export type StackParamProps = {
     id: number;
   };
   EpisodeDetails: EpisodeProps;
+  PeopleDetails: PeopleProps;
 };

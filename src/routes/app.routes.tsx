@@ -7,6 +7,7 @@ import ShowDetails from "../screens/ShowDetails";
 import EpisodeDetails from "../screens/EpisodeDetails";
 
 import People from "../screens/People";
+import PeopleDetails from "../screens/PeopleDetails";
 
 import { Icon } from "./styles";
 
@@ -60,6 +61,8 @@ const AuthRoutes: React.FC = () => {
       <AppStack.Screen name="Tabs" component={TabScreens} />
       <AppStack.Screen name="ShowDetails" component={ShowDetails} />
       <AppStack.Screen name="EpisodeDetails" component={EpisodeDetails} />
+
+      <AppStack.Screen name="PeopleDetails" component={PeopleDetails} />
     </AppStack.Navigator>
   );
 };
