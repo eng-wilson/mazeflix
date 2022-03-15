@@ -9,11 +9,9 @@ export const Container = styled.TouchableOpacity`
   flex: 1;
   border-radius: 10px;
 
-  /* justify-content: center; */
   align-items: center;
 
   margin-top: 20px;
-  /* padding: 10px 14px; */
 `;
 
 export const Image = styled.Image`

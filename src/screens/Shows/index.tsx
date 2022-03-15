@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { AxiosResponse } from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Text, TouchableOpacity } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
@@ -8,9 +8,9 @@ import Input from "../../components/Input";
 import ShowCard from "../../components/ShowCard";
 
 import { StackParamProps } from "../../interfaces/routes.b";
-import { ShowProps } from "../../interfaces/shows.b";
+import { ShowProps, ShowSearchProps } from "../../interfaces/shows.b";
 
-import { getShows } from "../../services/shows";
+import { getShowBySearch, getShows } from "../../services/shows";
 
 import { Container, Row, FilterOption, Divider } from "./styles";
 
@@ -18,11 +18,14 @@ import { useFav } from "../../hooks/favorites";
 
 const Shows = () => {
   const navigation = useNavigation<StackNavigationProp<StackParamProps>>();
+
   const { favorites } = useFav();
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
+
   const [shows, setShows] = useState<ShowProps[]>([]);
+  const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState<ShowProps[]>([]);
 
   const getShowsData = async () => {
     try {
@@ -64,9 +67,43 @@ const Shows = () => {
     }
   };
 
+  const handleShowSearch = useCallback(async () => {
+    try {
+      if (filter === "all") {
+        const response = await getShowBySearch(search);
+
+        if (response.status === 200) {
+          setSearchResult(
+            response.data.map((result: ShowSearchProps) => result.show)
+          );
+        }
+      }
+
+      if (filter === "favorites") {
+        const filteredList = shows.filter((show) =>
+          favorites.includes(show.id)
+        );
+
+        setSearchResult(
+          filteredList.filter((favorite) => favorite.name.includes(search))
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, [search]);
+
   useEffect(() => {
     getShowsData();
   }, [page]);
+
+  useEffect(() => {
+    if (search !== "") {
+      handleShowSearch();
+    } else {
+      setSearchResult([]);
+    }
+  }, [search]);
 
   return (
     <Container>
@@ -85,7 +122,7 @@ const Shows = () => {
       <Input placeholder="Search" value={search} onChange={setSearch} />
 
       <FlatList
-        data={getFilteredList()}
+        data={searchResult.length > 0 ? searchResult : getFilteredList()}
         numColumns={2}
         initialNumToRender={20}
         renderItem={({ item }: { item: ShowProps }) => (
@@ -94,7 +131,7 @@ const Shows = () => {
             title={item.name}
             genres={item.genres}
             rating={item.rating}
-            image={item.image.medium}
+            image={item.image?.medium}
             favorite={favorites.includes(item.id)}
             onPress={() => navigation.navigate("ShowDetails", { id: item.id })}
           />

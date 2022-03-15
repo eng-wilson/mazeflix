@@ -123,7 +123,7 @@ const ShowDetails = () => {
       <ScrollView>
         <CoverImage
           source={{
-            uri: show?.image.original,
+            uri: show?.image?.original,
           }}
         />
 
@@ -178,7 +178,7 @@ const ShowDetails = () => {
                     navigation.navigate("EpisodeDetails", { ...episode });
                   }}
                   image={
-                    episode.image ? episode.image.medium : show?.image.medium
+                    episode.image ? episode.image.medium : show?.image?.medium
                   }
                 />
               ))}

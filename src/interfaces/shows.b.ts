@@ -4,7 +4,7 @@ export type ShowProps = {
   rating: {
     average: number | undefined;
   };
-  image: {
+  image: null | {
     medium: string;
     original: string;
   };
@@ -26,4 +26,9 @@ export type EpisodeProps = {
     average: number;
   };
   summary: string;
+};
+
+export type ShowSearchProps = {
+  score: number;
+  show: ShowProps;
 };

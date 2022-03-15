@@ -17,7 +17,7 @@ interface Props {
   rating: {
     average: number | undefined;
   };
-  image: string;
+  image: string | undefined;
   favorite: boolean;
   onPress: () => void;
 }

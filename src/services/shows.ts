@@ -15,3 +15,7 @@ export const getShowSeasons = async (id: number) => {
 export const getShowEpisodes = async (id: number) => {
   return API.get(`/shows/${id}/episodes`);
 };
+
+export const getShowBySearch = async (query: string) => {
+  return API.get(`search/shows?q=${query}`);
+};

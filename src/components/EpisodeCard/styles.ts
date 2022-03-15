@@ -50,8 +50,6 @@ export const Row = styled.View`
   align-self: flex-start;
   align-items: center;
   justify-content: flex-end;
-
-  /* padding-top: 4px; */
 `;
 
 export const Icon = styled(FontAwesome)`
