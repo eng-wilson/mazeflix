@@ -26,16 +26,21 @@ const Shows = () => {
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState<ShowProps[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const getShowsData = async () => {
     try {
+      setLoading(true);
       const result = await getShows(page);
 
       if (result.status === 200) {
         setShows(result.data);
       }
+
+      setLoading(false);
     } catch (e) {
       console.log("error");
+      setLoading(false);
     }
   };
 
@@ -69,6 +74,8 @@ const Shows = () => {
 
   const handleShowSearch = useCallback(async () => {
     try {
+      setLoading(true);
+
       if (filter === "all") {
         const response = await getShowBySearch(search);
 
@@ -88,8 +95,11 @@ const Shows = () => {
           filteredList.filter((favorite) => favorite.name.includes(search))
         );
       }
+
+      setLoading(false);
     } catch (e) {
       console.log(e);
+      setLoading(false);
     }
   }, [search]);
 
@@ -125,6 +135,8 @@ const Shows = () => {
         data={searchResult.length > 0 ? searchResult : getFilteredList()}
         numColumns={2}
         initialNumToRender={20}
+        onRefresh={() => {}}
+        refreshing={loading}
         renderItem={({ item }: { item: ShowProps }) => (
           <ShowCard
             key={item.id}
