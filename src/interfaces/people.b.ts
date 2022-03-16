@@ -14,3 +14,8 @@ export type PeopleProps = {
       };
   id: number;
 };
+
+export type PeopleSearchProps = {
+  score: number;
+  person: PeopleProps;
+};
