@@ -31,6 +31,7 @@ const EpisodeDetails = () => {
             source={{
               uri: params?.image?.original,
             }}
+            resizeMode="contain"
           />
         )}
 

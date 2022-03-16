@@ -1,12 +1,16 @@
+import React, { useEffect, useState } from "react";
+import { ScrollView, RefreshControl } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+
 import Header from "../../components/Header";
 import ShowCard from "../../components/ShowCard";
+
 import { useFav } from "../../hooks/favorites";
+
 import { StackParamProps } from "../../interfaces/routes.b";
 import { ShowProps } from "../../interfaces/shows.b";
+
 import { getPeopleCast } from "../../services/people";
 
 import {
@@ -19,8 +23,6 @@ import {
   Wrapper,
   EpisodeList,
   ShowCardContainer,
-  Row,
-  Icon,
 } from "./styles";
 
 interface CastResponseProps {
@@ -34,9 +36,11 @@ const PeopleDetails = () => {
   const { params } = useRoute<RouteProp<StackParamProps, "PeopleDetails">>();
   const { favorites } = useFav();
   const [shows, setShows] = useState<ShowProps[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const getPeopleCastData = async () => {
     try {
+      setLoading(true);
       const response = await getPeopleCast(params.id);
 
       if (response.status === 200) {
@@ -46,7 +50,10 @@ const PeopleDetails = () => {
           )
         );
       }
+
+      setLoading(false);
     } catch (e) {
+      setLoading(false);
       console.log("error");
     }
   };
@@ -59,46 +66,40 @@ const PeopleDetails = () => {
     <Container>
       <Header />
 
-      {console.tron.logImportant(params)}
-
-      <ScrollView>
+      <ScrollView refreshControl={<RefreshControl refreshing={loading} />}>
         <CoverImage
           source={{
             uri: params?.image?.original,
           }}
+          resizeMode="contain"
         />
 
         <InfoContainer>
           <Wrapper>
             <Title>{params?.name}</Title>
-
-            <DarkText>{params?.country?.name}</DarkText>
           </Wrapper>
 
-          {shows.length > 0 && (
-            <Wrapper>
-              <SubTitle>Cast</SubTitle>
+          <Wrapper>
+            <SubTitle>Cast</SubTitle>
+            {!loading && shows.length === 0 && <DarkText>-</DarkText>}
 
-              <EpisodeList>
-                {console.tron.logImportant(shows)}
-                {shows.map((item: ShowProps) => (
-                  <ShowCardContainer>
-                    <ShowCard
-                      key={item.id}
-                      title={item.name}
-                      genres={item.genres}
-                      rating={item.rating}
-                      image={item.image?.medium}
-                      favorite={favorites.includes(item.id)}
-                      onPress={() =>
-                        navigation.navigate("ShowDetails", { id: item.id })
-                      }
-                    />
-                  </ShowCardContainer>
-                ))}
-              </EpisodeList>
-            </Wrapper>
-          )}
+            <EpisodeList>
+              {shows.map((item: ShowProps) => (
+                <ShowCardContainer key={item.id}>
+                  <ShowCard
+                    title={item.name}
+                    genres={item.genres}
+                    rating={item.rating}
+                    image={item.image?.medium}
+                    favorite={favorites.includes(item.id)}
+                    onPress={() =>
+                      navigation.navigate("ShowDetails", { id: item.id })
+                    }
+                  />
+                </ShowCardContainer>
+              ))}
+            </EpisodeList>
+          </Wrapper>
         </InfoContainer>
       </ScrollView>
     </Container>

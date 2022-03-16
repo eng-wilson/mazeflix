@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, RefreshControl } from "react-native";
 import { useRoute, RouteProp, useNavigation } from "@react-navigation/native";
 
 import EpisodeCard from "../../components/EpisodeCard";
@@ -40,6 +40,7 @@ const ShowDetails = () => {
   const [season, setSeason] = useState(1);
   const [seasons, setSeasons] = useState<number[]>();
   const [episodes, setEpisodes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [episodesBySeason, setEpisodesBySeason] = useState([]);
   const [show, setShow] = useState<ShowProps>();
@@ -47,18 +48,23 @@ const ShowDetails = () => {
 
   const getShowDetails = async () => {
     try {
+      setLoading(true);
       const response = await getShowById(params.id);
 
       if (response.status === 200) {
         setShow(response.data);
       }
+
+      setLoading(false);
     } catch (e) {
+      setLoading(false);
       console.log("error");
     }
   };
 
   const getShowSeasonsData = async () => {
     try {
+      setLoading(true);
       const response = await getShowSeasons(params.id);
 
       if (response.status === 200) {
@@ -69,19 +75,25 @@ const ShowDetails = () => {
 
         setSeasons(seasonsList);
       }
+
+      setLoading(false);
     } catch (e) {
+      setLoading(false);
       console.log("error");
     }
   };
 
   const getShowEpisodesData = async () => {
     try {
+      setLoading(true);
       const response = await getShowEpisodes(params.id);
 
       if (response.status === 200) {
         setEpisodes(response.data);
       }
+      setLoading(false);
     } catch (e) {
+      setLoading(false);
       console.log("error");
     }
   };
@@ -120,11 +132,12 @@ const ShowDetails = () => {
     <Container>
       <Header favorite={isFavorite} onFav={addShowToFavorite} />
 
-      <ScrollView>
+      <ScrollView refreshControl={<RefreshControl refreshing={loading} />}>
         <CoverImage
           source={{
             uri: show?.image?.original,
           }}
+          resizeMode="contain"
         />
 
         <InfoContainer>

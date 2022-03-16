@@ -14,15 +14,14 @@ export const CoverImage = styled.Image`
   width: 100%;
 
   height: 300px;
+
+  border-radius: 10px;
 `;
 
 export const InfoContainer = styled.View`
   background-color: ${({ theme }) => theme.colors.gray900};
-  top: -20px;
-  padding: 10px 20px;
 
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  padding: 10px 20px;
 `;
 
 export const Wrapper = styled.View`
@@ -32,6 +31,7 @@ export const Wrapper = styled.View`
 `;
 
 export const Title = styled.Text`
+  flex: 1;
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: 24px;
 
