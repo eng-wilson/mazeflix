@@ -1,0 +1,70 @@
+import styled from "styled-components/native";
+import { Feather } from "@expo/vector-icons";
+
+export const Container = styled.View`
+  flex: 1;
+
+  background-color: ${({ theme }) => theme.colors.gray900};
+
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 20px;
+`;
+
+export const Title = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: 24px;
+
+  text-align: center;
+
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+export const PinText = styled.Text`
+  color: ${({ theme }) => theme.colors.white};
+  text-align: center;
+  font-size: 24px;
+
+  width: 20px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.white};
+
+  margin: 24px 16px;
+`;
+
+export const ErrorMessage = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: 14px;
+
+  text-align: center;
+
+  color: ${({ theme }) => theme.colors.red400};
+`;
+
+export const Message = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: 14px;
+
+  text-align: left;
+
+  align-self: flex-start;
+
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+export const Row = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+`;
+
+export const Icon = styled(Feather)`
+  color: ${({ theme }) => theme.colors.white};
+
+  font-size: 18px;
+  margin-right: 8px;
+`;
