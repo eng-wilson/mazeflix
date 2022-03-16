@@ -12,6 +12,17 @@ export const Container = styled.View`
   padding-top: 20px;
 `;
 
+export const Logo = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.black};
+  font-size: 40px;
+  color: ${({ theme }) => theme.colors.yellow300};
+
+  text-align: center;
+
+  position: absolute;
+  top: 10%;
+`;
+
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: 24px;
@@ -53,7 +64,12 @@ export const Message = styled.Text`
   color: ${({ theme }) => theme.colors.white};
 `;
 
-export const Row = styled.TouchableOpacity`
+export const SimpleRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const AbsoluteRow = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
 
@@ -67,4 +83,15 @@ export const Icon = styled(Feather)`
 
   font-size: 18px;
   margin-right: 8px;
+`;
+
+export const Button = styled.TouchableOpacity`
+  margin-top: 20px;
+`;
+
+export const OptionText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.white};
+  text-align: center;
 `;
