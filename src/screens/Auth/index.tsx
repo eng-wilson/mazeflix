@@ -125,6 +125,7 @@ const Auth = () => {
       const response = await LocalAuthentication.authenticateAsync();
 
       if (response.success) {
+        await AsyncStorage.setItem("@fingerprint", String(allowFingerprint));
         setIsLogged(true);
       } else {
         setError(true);
