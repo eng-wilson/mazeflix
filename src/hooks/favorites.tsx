@@ -26,19 +26,23 @@ function FavProvider({ children }: FavProviderProps) {
     try {
       if (!favorites.find((favorite) => favorite.id === show.id)) {
         setFavorites((favorites) => {
-          const jsonValue = JSON.stringify(favorites);
+          const newFavorites = [...favorites, show];
+          const jsonValue = JSON.stringify(newFavorites);
 
           AsyncStorage.setItem("@user_key", jsonValue);
 
-          return [...favorites, show];
+          return newFavorites;
         });
       } else {
         setFavorites((favorites) => {
-          const jsonValue = JSON.stringify(favorites);
+          const newFavorites = favorites.filter(
+            (favorite) => favorite.id !== show.id
+          );
+          const jsonValue = JSON.stringify(newFavorites);
 
           AsyncStorage.setItem("@user_key", jsonValue);
 
-          return favorites.filter((favorite) => favorite.id !== show.id);
+          return newFavorites;
         });
       }
     } catch (e) {
