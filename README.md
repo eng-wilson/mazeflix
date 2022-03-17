@@ -46,6 +46,9 @@ $ git clone https://github.com/eng-wilson/mazeflix.git && cd mazeflix
 # Install the dependencies
 $ yarn
 
+# Install Expo-cli
+$ npm install --global expo-cli
+
 # Run Expo
 $ expo start
 ```
