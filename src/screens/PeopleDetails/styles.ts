@@ -11,8 +11,8 @@ export const Container = styled.View`
 `;
 
 export const CoverImage = styled.Image`
-  width: 100%;
-  aspect-ratio: 0.75;
+  width: 50%;
+  aspect-ratio: 1;
 
   border-radius: 10px;
 
