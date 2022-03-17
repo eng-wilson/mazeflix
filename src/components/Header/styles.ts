@@ -6,10 +6,6 @@ interface FavoriteProps {
 }
 
 export const Container = styled.View`
-  /* position: absolute; */
-  top: 0;
-  z-index: 1;
-
   width: 100%;
 
   background-color: ${({ theme }) => theme.colors.gray900};
@@ -18,7 +14,7 @@ export const Container = styled.View`
   justify-content: space-between;
   align-items: center;
 
-  padding: 10px 20px;
+  padding: 20px 20px;
 `;
 
 export const IconContainer = styled.TouchableOpacity``;
