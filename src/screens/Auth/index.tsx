@@ -97,6 +97,9 @@ const Auth = () => {
   };
 
   const toggleAllowFingerprint = () => {
+    if (!allowFingerprint) {
+      handleFingerprint();
+    }
     setAllowFingerprint((value) => !value);
   };
 
