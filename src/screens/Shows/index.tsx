@@ -1,7 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
-import { AxiosResponse } from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, Text, TouchableOpacity } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import Input from "../../components/Input";
@@ -34,7 +33,8 @@ const Shows = () => {
       const result = await getShows(page);
 
       if (result.status === 200) {
-        setShows(result.data);
+        setPage((value) => value + 1);
+        setShows((shows) => [...shows, ...result.data]);
       }
 
       setLoading(false);
@@ -103,7 +103,7 @@ const Shows = () => {
 
   useEffect(() => {
     getShowsData();
-  }, [page]);
+  }, []);
 
   useEffect(() => {
     if (search !== "") {
@@ -127,8 +127,6 @@ const Shows = () => {
         </TouchableOpacity>
       </Row>
 
-      {console.tron.logImportant(favorites)}
-
       <Input placeholder="Search" value={search} onChange={setSearch} />
 
       <FlatList
@@ -137,6 +135,8 @@ const Shows = () => {
         initialNumToRender={20}
         onRefresh={() => {}}
         refreshing={loading}
+        onEndReached={getShowsData}
+        onEndReachedThreshold={0.1}
         renderItem={({ item }: { item: ShowProps }) => (
           <ShowCard
             key={item.id}
