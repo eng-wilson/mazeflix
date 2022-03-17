@@ -66,7 +66,7 @@ const Shows = () => {
     if (filter === "all") {
       return shows;
     } else {
-      const filteredList = shows.filter((show) => favorites.includes(show.id));
+      const filteredList = favorites;
 
       return filteredList.sort(sortByShowName);
     }
@@ -87,9 +87,7 @@ const Shows = () => {
       }
 
       if (filter === "favorites") {
-        const filteredList = shows.filter((show) =>
-          favorites.includes(show.id)
-        );
+        const filteredList = favorites;
 
         setSearchResult(
           filteredList.filter((favorite) => favorite.name.includes(search))
@@ -129,6 +127,8 @@ const Shows = () => {
         </TouchableOpacity>
       </Row>
 
+      {console.tron.logImportant(favorites)}
+
       <Input placeholder="Search" value={search} onChange={setSearch} />
 
       <FlatList
@@ -144,7 +144,7 @@ const Shows = () => {
             genres={item.genres}
             rating={item.rating}
             image={item.image?.medium}
-            favorite={favorites.includes(item.id)}
+            favorite={!!favorites.find((favorite) => favorite.id === item.id)}
             onPress={() => navigation.navigate("ShowDetails", { id: item.id })}
           />
         )}

@@ -91,7 +91,9 @@ const PeopleDetails = () => {
                     genres={item.genres}
                     rating={item.rating}
                     image={item.image?.medium}
-                    favorite={favorites.includes(item.id)}
+                    favorite={
+                      !!favorites.find((favorite) => favorite.id === item.id)
+                    }
                     onPress={() =>
                       navigation.navigate("ShowDetails", { id: item.id })
                     }

@@ -6,30 +6,31 @@ import React, {
   useState,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ShowProps } from "../interfaces/shows.b";
 
 interface FavProviderProps {
   children: ReactNode;
 }
 
 interface FavContextProps {
-  favorites: number[];
-  toggleFavorite: (id: number) => void;
+  favorites: ShowProps[];
+  toggleFavorite: (show: ShowProps) => void;
 }
 
 const FavContext = createContext({} as FavContextProps);
 
 function FavProvider({ children }: FavProviderProps) {
-  const [favorites, setFavorites] = useState<number[]>([]);
+  const [favorites, setFavorites] = useState<ShowProps[]>([]);
 
-  const toggleFavorite = (id: number) => {
+  const toggleFavorite = (show: ShowProps) => {
     try {
-      if (!favorites.includes(id)) {
+      if (!favorites.includes(show)) {
         setFavorites((favorites) => {
           const jsonValue = JSON.stringify(favorites);
 
           AsyncStorage.setItem("@user_key", jsonValue);
 
-          return [...favorites, id];
+          return [...favorites, show];
         });
       } else {
         setFavorites((favorites) => {
@@ -37,7 +38,7 @@ function FavProvider({ children }: FavProviderProps) {
 
           AsyncStorage.setItem("@user_key", jsonValue);
 
-          return favorites.filter((favorite) => favorite !== id);
+          return favorites.filter((favorite) => favorite !== show);
         });
       }
     } catch (e) {

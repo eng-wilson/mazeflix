@@ -107,7 +107,9 @@ const ShowDetails = () => {
   };
 
   const addShowToFavorite = () => {
-    toggleFavorite(params.id);
+    if (show) {
+      toggleFavorite(show);
+    }
   };
 
   useEffect(() => {
@@ -121,12 +123,12 @@ const ShowDetails = () => {
   }, [episodes, season]);
 
   useEffect(() => {
-    if (favorites.includes(params.id)) {
+    if (show && favorites.includes(show)) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
     }
-  }, [favorites]);
+  }, [show, favorites]);
 
   return (
     <Container>
