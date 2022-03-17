@@ -24,7 +24,7 @@ function FavProvider({ children }: FavProviderProps) {
 
   const toggleFavorite = (show: ShowProps) => {
     try {
-      if (!favorites.includes(show)) {
+      if (!favorites.find((favorite) => favorite.id === show.id)) {
         setFavorites((favorites) => {
           const jsonValue = JSON.stringify(favorites);
 
@@ -38,7 +38,7 @@ function FavProvider({ children }: FavProviderProps) {
 
           AsyncStorage.setItem("@user_key", jsonValue);
 
-          return favorites.filter((favorite) => favorite !== show);
+          return favorites.filter((favorite) => favorite.id !== show.id);
         });
       }
     } catch (e) {

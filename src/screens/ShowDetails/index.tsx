@@ -123,7 +123,7 @@ const ShowDetails = () => {
   }, [episodes, season]);
 
   useEffect(() => {
-    if (show && favorites.includes(show)) {
+    if (show && !!favorites.find((favorite) => favorite.id === show.id)) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
