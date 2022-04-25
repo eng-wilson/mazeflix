@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useTheme } from "styled-components";
+import { useTheme } from "styled-components/native";
 
 import { Container, InputItem, Icon } from "./styles";
 

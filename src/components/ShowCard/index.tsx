@@ -36,8 +36,8 @@ const ShowCard = ({
         <Image source={{ uri: image }} />
 
         {favorite && (
-          <IconContainer>
-            <Icon name="heart" inverse={favorite} />
+          <IconContainer testID="iconContainer">
+            <Icon testID="icon" name="heart" inverse={favorite} />
           </IconContainer>
         )}
       </View>

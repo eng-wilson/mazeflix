@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
 import {
