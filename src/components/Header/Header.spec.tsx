@@ -1,8 +1,21 @@
-import { render } from "@testing-library/react-native";
+import { renderHook } from "@testing-library/react-hooks";
+import { render, fireEvent } from "@testing-library/react-native";
 import { ThemeProvider } from "styled-components/native";
 import defaultTheme from "../../styles/theme/default";
 import Header from ".";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+
+const mockedNavigate = jest.fn();
+
+jest.mock("@react-navigation/native", () => {
+  const actualNav = jest.requireActual("@react-navigation/native");
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      goBack: mockedNavigate,
+    }),
+  };
+});
 
 const Providers: React.FC = ({ children }) => (
   <NavigationContainer>
@@ -49,5 +62,17 @@ describe("Header Component", () => {
     const favoriteText = queryByText("Favorite");
 
     expect(favoriteText).toBeFalsy();
+  });
+
+  it("should be able to goBack", () => {
+    const { getByTestId } = render(<Header />, {
+      wrapper: Providers,
+    });
+
+    const headerButton = getByTestId("headerButton");
+
+    fireEvent.press(headerButton);
+
+    expect(mockedNavigate).toHaveBeenCalled();
   });
 });

@@ -20,7 +20,7 @@ const Header = ({ favorite, onFav }: HeaderProps) => {
   const navigation = useNavigation();
   return (
     <Container>
-      <IconContainer onPress={navigation.goBack}>
+      <IconContainer testID="headerButton" onPress={navigation.goBack}>
         <Icon name="arrow-left" />
       </IconContainer>
 
