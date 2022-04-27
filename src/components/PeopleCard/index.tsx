@@ -17,7 +17,7 @@ interface Props {
 
 const PeopleCard = ({ name, country, image, onPress }: Props) => {
   return (
-    <Container onPress={onPress}>
+    <Container testID="container" onPress={onPress}>
       <Image source={{ uri: image }} />
 
       <Title>{name}</Title>
